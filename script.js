@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameGrid = document.getElementById('gameGrid');
     const gameCards = document.querySelectorAll('.game-card');
 
-    // Create the "No Results" element dynamically if it doesn't exist
     let noResults = document.getElementById('noResults');
     if (!noResults && gameGrid) {
         noResults = document.createElement('div');
@@ -62,39 +61,45 @@ document.addEventListener('DOMContentLoaded', () => {
         const filterGames = () => {
             const searchTerm = gameSearch.value.toLowerCase();
             
-            // Capture active filters from each specific group
-            const activePlayers = document.querySelector('[data-group="players"] .active')?.dataset.filter;
-            const activeCategory = document.querySelector('[data-group="category"] .active')?.dataset.filter;
-            const activeComplexity = document.querySelector('[data-group="complexity"] .active')?.dataset.filter;
+            // Get all active filters for each group as Arrays
+            const activePlayers = Array.from(document.querySelectorAll('[data-group="players"] .active')).map(btn => btn.dataset.filter);
+            const activeCategories = Array.from(document.querySelectorAll('[data-group="category"] .active')).map(btn => btn.dataset.filter.toLowerCase());
+            const activeComplexities = Array.from(document.querySelectorAll('[data-group="complexity"] .active')).map(btn => btn.dataset.filter);
 
             let visibleCount = 0;
 
             gameCards.forEach(card => {
                 const title = card.querySelector('h2').textContent.toLowerCase();
-                const cardCategory = card.dataset.category;
+                const cardCategories = (card.dataset.category || "").toLowerCase().split(' ');
                 const cardComplexity = card.dataset.complexity;
                 const cardPlayers = card.dataset.players || "";
 
-                // Search Match
+                // 1. Search Match
                 const matchesSearch = title.includes(searchTerm);
 
-                // Category Match
-                const matchesCategory = !activeCategory || cardCategory === activeCategory;
+                // 2. Category Match (Must match ALL selected categories)
+                const matchesCategory = activeCategories.length === 0 || 
+                    activeCategories.every(cat => cardCategories.includes(cat));
 
-                // Complexity (Difficulty) Match
-                const matchesComplexity = !activeComplexity || cardComplexity === activeComplexity;
+                // 3. Complexity Match (Matches ANY selected difficulty)
+                const matchesComplexity = activeComplexities.length === 0 || 
+                    activeComplexities.includes(cardComplexity);
 
-                // Player Match Logic
+                // 4. Player Match Logic (Matches ANY selected player count)
                 let matchesPlayers = true;
-                if (activePlayers) {
-                    if (activePlayers === "5") {
-                        const maxPlayers = parseInt(cardPlayers.split('-').pop());
-                        matchesPlayers = maxPlayers >= 5;
-                    } else {
-                        const [min, max] = cardPlayers.split('-').map(Number);
-                        const target = parseInt(activePlayers);
-                        matchesPlayers = max ? (target >= min && target <= max) : (target === min);
-                    }
+                if (activePlayers.length > 0) {
+                    matchesPlayers = activePlayers.some(filterValue => {
+                        if (filterValue === "5") {
+                            const maxPlayers = parseInt(cardPlayers.split('-').pop());
+                            return maxPlayers >= 5;
+                        } else {
+                            const playersArr = cardPlayers.split('-').map(Number);
+                            const target = parseInt(filterValue);
+                            return playersArr.length === 2 
+                                ? (target >= playersArr[0] && target <= playersArr[1]) 
+                                : (target === playersArr[0]);
+                        }
+                    });
                 }
 
                 // Final Visibility Check
@@ -106,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Toggle "No Results" message
             if (noResults) noResults.style.display = (visibleCount === 0) ? "block" : "none";
         };
 
@@ -114,22 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                const group = btn.parentElement;
-                const isAlreadyActive = btn.classList.contains('active');
-
-                // Deselect others in the same group
-                group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                
-                // Toggle current button
-                if (!isAlreadyActive) {
-                    btn.classList.add('active');
-                }
-                
+                // Toggle the "active" class on click instead of clearing siblings
+                btn.classList.toggle('active');
                 filterGames();
             });
         });
 
-        // Reset Function
         const resetAll = () => {
             gameSearch.value = "";
             filterBtns.forEach(b => b.classList.remove('active'));
@@ -138,5 +132,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (clearBtn) clearBtn.addEventListener('click', resetAll);
         if (noResults) noResults.querySelector('button').addEventListener('click', resetAll);
+    }
+
+    /* --- 4. Netlify Contact Form --- */
+    const contactForm = document.getElementById('contact-form');
+    const formFields = document.getElementById('form-fields');
+    const successMessage = document.getElementById('success-message');
+
+    if (contactForm && formFields && successMessage) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString(),
+            })
+            .then(() => {
+                formFields.style.display = "none";
+                successMessage.style.display = "block";
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch((error) => {
+                alert("Wait, something went wrong. Please try again or email us directly.");
+                console.error('Form submission error:', error);
+            });
+        });
     }
 });
