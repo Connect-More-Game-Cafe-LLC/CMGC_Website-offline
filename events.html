@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group & Private Events | Connect More Entertainment</title>
+    
+    <meta name="description" content="Host turn-key activations, mobile board game lounges, live custom trivia, music bingo, and bracket tournaments in Franklin, TN and surrounding areas.">
+    <meta property="og:title" content="Group & Private Event Experiences | Connect More">
+    <meta property="og:description" content="We turn your venue, party room, or gathering space into a full game night hosted start to finish.">
+    <meta property="og:image" content="logo.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Hover / Reveal Cards Custom Styling */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-card .card-default {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .service-card .card-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--diode-blue, #0056b3);
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(100%);
+            transition: all 0.35s ease-in-out;
+            border-radius: inherit;
+        }
+
+        .service-card .card-details p,
+        .service-card .card-details ul {
+            color: #ffffff !important;
+            margin: 0;
+        }
+
+        .service-card .card-details ul li {
+            color: #ffffff !important;
+        }
+
+        /* Trigger Details on Hover & Focus/Touch */
+        .service-card:hover .card-details,
+        .service-card:focus .card-details,
+        .service-card.active .card-details {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .service-card:hover .card-default,
+        .service-card:focus .card-default,
+        .service-card.active .card-default {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        /* 2x2 Grid Layout for Fast-Paced Tournaments */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2x2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-toggle" id="openMenu"><i class="fas fa-bars"></i></div>
+<div class="menu-overlay" id="overlay"></div>
+
+<nav class="nav-drawer" id="drawer">
+    <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
+    <a href="index.html">Home</a>
+    <a href="events.html">Group & Private Events</a>
+    <a href="about.html">Our Story</a>
+    <a href="owners.html">Meet the Family</a>
+    <a href="game_menu.html">Game Library</a>
+    <a href="faq.html">FAQ</a>
+    <a href="#book-now" id="contactLink">Book An Event</a>
+</nav>
+
+<header>
+    <a href="index.html"><img class="piccenter" src="logo.png" alt="Connect More Logo"></a>
+    <div class="hero-text">GROUP & PRIVATE EVENTS</div>
+    <div class="tagline">FRANKLIN, TN & SURROUNDING AREAS</div>
+    <p style="letter-spacing: 1px; margin-bottom: 20px;">Scroll Less. Connect More.</p>
+    
+    <div class="nav-container">
+        <a href="#event-menu" class="btn">EXPLORE FORMATS</a>
+        <a href="#book-now" class="btn btn-white">GET A QUOTE</a>
+    </div>
+</header>
+
+<div class="container">
+    
+    <!-- Intro Banner -->
+    <div class="card intro-card">
+        <h2 style="color: var(--diode-blue);">Turn-Key Hosted Experiences</h2>
+        <p class="intro-p">
+            We turn your venue, party room, or gathering space into an interactive event space—tabletop lounges, live trivia, music bingo, and bracket tournaments hosted start to finish by our Game Connectors. No rulebooks to read, no setup for your group to manage. Pick a format below and we'll bring the rest!
+        </p>
+    </div>
+
+    <!-- Section 1: Social Mixers & Lounges -->
+    <div id="event-menu" style="margin-bottom: 40px;">
+        <h2 class="section-title">01 SOCIAL MIXERS & GAME LOUNGES</h2>
+        <p style="text-align: center; margin-bottom: 25px; color: #555;">Low-pressure formats built for casual mingling across groups of any size.</p>
+        
+        <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <div class="card service-card" tabindex="0" onclick="this.classList.toggle('active')">
+                <div class="card-default">
+                    <i class="fas fa-couch service-icon"></i>
+                    <h3>Mobile Board Game Lounge</h3>
+                </div>
+                <div class="card-details">
+                    <p>A full lounge built into your space, stocked with 80+ curated titles. Our Game Connectors seat groups by vibe and teach the rules on the spot.</p>
+                </div>
+            </div>
+
+            <div class="card service-card" tabindex="0" onclick="this.classList.toggle('active')">
+                <div class="card-default">
+                    <i class="fas fa-microphone-alt service-icon"></i>
+                    <h3>Live Custom Trivia Night</h3>
+                </div>
+                <div class="card-details">
+                    <p>Pub-style trivia with a live emcee covering pop culture, history, and general knowledge—plus a custom round built around your group, party theme, or inside jokes!</p>
+                </div>
+            </div>
+
+            <div class="card service-card" tabindex="0" onclick="this.classList.toggle('active')">
+                <div class="card-default">
+                    <i class="fas fa-users service-icon"></i>
+                    <h3>Room-Wide Party Games</h3>
+                </div>
+                <div class="card-details">
+                    <p>Easy-to-learn crowd favorites that scale cleanly to a full room:</p>
+                    <ul style="text-align: left; font-size: 0.85rem; margin-top: 10px; padding-left: 20px;">
+                        <li><strong>Herd Mentality:</strong> Match the majority answer.</li>
+                        <li><strong>Hues & Cues:</strong> Clue-giving with precise color shades.</li>
+                        <li><strong>Blank Slate:</strong> Fill in the word your team is thinking.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: Bingo Experiences -->
+    <div style="margin-bottom: 40px;">
+        <h2 class="section-title">02 BINGO EXPERIENCES</h2>
+        <p style="text-align: center; margin-bottom: 25px; color: #555;">High-energy, zero-learning-curve games that get the entire room involved at once.</p>
+
+        <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <div class="card service-card" tabindex="0" onclick="this.classList.toggle('active')">
+                <div class="card-default">
+                    <i class="fas fa-compact-disc service-icon"></i>
+                    <h3>Music Bingo</h3>
+                </div>
+                <div class="card-details">
+                    <p>Numbers become song snippets! Cross off matching hits with a wide variety of games featuring different decades, music genres, themed playlists, etc.</p>
+                </div>
+            </div>
+
+            <div class="card service-card" tabindex="0" onclick="this.classList.toggle('active')">
+                <div class="card-default">
+                    <i class="fas fa-th service-icon"></i>
+                    <h3>Bingo</h3>
+                </div>
+                <div class="card-details">
+                    <p>Fast-paced traditional or themed bingo rounds complete with high-energy live calls, interactive gameplay, and hosted prize giveaways.</p>
+                </div>
+            </div>
+
+            <div class="card service-card" tabindex="0" onclick="this.classList.toggle('active')">
+                <div class="card-default">
+                    <i class="fas fa-id-card service-icon"></i>
+                    <h3>Icebreaker: People Bingo</h3>
+                </div>
+                <div class="card-details">
+                    <p>Custom cards filled with unique attributes ("speaks 2 languages," "has traveled to 5+ countries"). Guests hunt down matches across the room to break the ice.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Structured Game Tournaments -->
+    <div style="margin-bottom: 40px;">
+        <h2 class="section-title">03 STRUCTURED GAME TOURNAMENTS</h2>
+        <p style="text-align: center; margin-bottom: 25px; color: #555;">Full brackets, live scorekeeping, and referees—we run the tournament, you run the friendly competition.</p>
+
+        <div class="card">
+            <h3 style="color: var(--diode-blue); margin-bottom: 15px;"><i class="fas fa-users-cog"></i> Team-Based Knowledge Tournaments</h3>
+            <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                    <h4>Hitster</h4>
+                    <p style="font-size: 0.85rem;">Teams race to place iconic songs into a chronological timeline by ear alone.</p>
+                </div>
+                <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                    <h4>Wits & Wagers</h4>
+                    <p style="font-size: 0.85rem;">You don't need the right answer—you just bet on who has it.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--diode-blue); margin: 25px 0 15px;"><i class="fas fa-bolt"></i> Fast-Paced Elimination Tournaments</h3>
+            <div class="grid-2x2">
+                <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                    <h4>TENZI</h4>
+                    <p style="font-size: 0.85rem;">A frantic, high-velocity dice matching race designed for rapid grouping.</p>
+                </div>
+                <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                    <h4>Dutch Blitz / Piles</h4>
+                    <p style="font-size: 0.85rem;">High-speed shedding card play demanding sharp vision and lightning reflexes.</p>
+                </div>
+                <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                    <h4>Exploding Kittens</h4>
+                    <p style="font-size: 0.85rem;">Push-your-luck card play with just enough chaos for a knockout bracket.</p>
+                </div>
+                <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                    <h4>Spoons</h4>
+                    <p style="font-size: 0.85rem;">Stealth card-matching ending in a sudden physical scramble for spoons.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--diode-blue); margin: 25px 0 15px;"><i class="fas fa-sync-alt"></i> Rotating Group Mixers</h3>
+            <div style="background: var(--light-gray); padding: 15px; border-radius: 8px;">
+                <h4>Bunco</h4>
+                <p style="font-size: 0.85rem;">Tables shift and partners swap every round—built specifically to get people mingling with guests they haven't talked to yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Booking Logistics -->
+    <div class="card intro-card" style="border-top-color: var(--yellow-jasper);">
+        <h2 style="color: var(--black-cat); text-align: center;">04 BOOKING LOGISTICS</h2>
+        <p style="text-align: center; margin-bottom: 25px;">We handle setup, hosting, and teardown—your group just shows up!</p>
+
+        <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 20px;">
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <h4 style="color: var(--diode-blue);"><i class="fas fa-building"></i> What Your Space Needs</h4>
+                <ul style="font-size: 0.85rem; margin-top: 10px; padding-left: 20px;">
+                    <li>Tables & seating for every participant (clusters or rows work).</li>
+                    <li>One standard power outlet within 25 feet of host area.</li>
+                    <li>Load-in access (elevator or ramp) 60 minutes before start time.</li>
+                </ul>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <h4 style="color: var(--diode-blue);"><i class="fas fa-list-ol"></i> How To Book</h4>
+                <ol style="font-size: 0.85rem; margin-top: 10px; padding-left: 20px;">
+                    <li>Pick your format (Social, Tournament, or Bingo) and headcount.</li>
+                    <li>Submit your date request below to receive a custom quote.</li>
+                    <li>Lock it in with a signed agreement and 50% deposit.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact / Booking Form -->
+    <div id="book-now" class="card newsletter-card">
+        <h2 style="text-align: center;">Request Your Event Quote</h2>
+        <p style="text-align: center; margin-bottom: 20px;">Let us know what format you're considering and we'll craft a custom proposal for your gathering.</p>
+        
+        <form id="event-quote-form" name="group-quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
+            <input type="hidden" name="form-name" value="group-quote">
+            <p style="display:none;"><label><input name="bot-field"></label></p>
+            
+            <div id="form-fields">
+                <div class="form-group">
+                    <label for="group-name">Your Name / Group Name</label>
+                    <input type="text" id="group-name" name="name" required placeholder="e.g. Jane Doe (or Smith Family Reunion / Acme Corp)">
+                </div>
+                <div class="form-group">
+                    <label for="group-email">Email Address</label>
+                    <input type="email" id="group-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="group-format">Preferred Format</label>
+                    <select id="group-format" name="format" required>
+                        <option value="" disabled selected>Select primary experience...</option>
+                        <option value="Mobile Lounge">Mobile Board Game Lounge</option>
+                        <option value="Live Custom Trivia">Live Custom Trivia Night</option>
+                        <option value="Bingo Experience">Bingo Experience (Music, Bingo, or People Bingo)</option>
+                        <option value="Tournament">Structured Game Tournament (Tenzi, Hitster, etc.)</option>
+                        <option value="Multi-Format Combo">Custom Multi-Format Combination</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="group-details">Event Details</label>
+                    <textarea id="group-details" name="details" required placeholder="Target date, location/address, estimated headcount, and any specific goals for your event..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Submit Quote Request</button>
+            </div>
+
+            <div id="success-message" style="display:none; text-align:center; padding: 20px;">
+                <i class="fas fa-check-circle" style="color: var(--diode-blue); font-size: 3rem; margin-bottom: 10px;"></i>
+                <h3>Request Received!</h3>
+                <p>We will review your event details and get back to you with a quote shortly.</p>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <h3>Stay Connected</h3>
+    <div class="social-icons">
+        <a href="https://instagram.com/connectmoregamecafe" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61582265409098" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="mailto:connect@connectmoregamecafe.com"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <div class="footer-contact" style="margin-top: 15px;">
+        <a href="tel:6156564507" style="color: white; text-decoration: none; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px;">(615) 656-4507</a>
+    </div>
+
+    <div class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">Our Story</a>
+        <a href="owners.html">Meet the Family</a>
+        <a href="game_menu.html">Game Library</a>
+        <a href="faq.html">FAQ</a>
+    </div>
+    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 15px;">&copy; 2026 Connect More Entertainment LLC | Franklin, TN</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
